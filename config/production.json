@@ -1,0 +1,12 @@
+{
+  "jwtPrivateKey": "parnassUnsecureJwtPrivateKey",
+
+  "name": "Parnass",
+  "db": {
+    "host": "mongodb+srv://parnass:oxygen@cluster0.szi24.mongodb.net/parnass2"
+  },
+  "rateLimit": {
+    "windowMin": 60,
+    "max": 5
+  }
+}

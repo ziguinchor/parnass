@@ -1,0 +1,54 @@
+const winston = require("winston");
+const { createLogger, format, transports } = winston;
+require("winston-daily-rotate-file");
+const path = require("path");
+
+const enumerateErrorFormat = format((info) => {
+  if (info.message instanceof Error) {
+    info.message = Object.assign(
+      {
+        message: info.message.message,
+        stack: info.message.stack,
+      },
+      info.message
+    );
+  }
+
+  if (info instanceof Error) {
+    return Object.assign(
+      {
+        message: info.message,
+        stack: info.stack,
+      },
+      info
+    );
+  }
+
+  return info;
+});
+// Create logger
+const logger = winston.createLogger({
+  level: "debug",
+
+  format: format.combine(
+    winston.format.timestamp({ format: "HH:mm:ss.SSSSS" }),
+    enumerateErrorFormat(),
+    format.json()
+  ),
+
+  transports: new winston.transports.DailyRotateFile({
+    level: "silly",
+    eol: "\n",
+    filename: path.join(__dirname, "../logs/errors-%DATE%.log"),
+    datePattern: "YYYY-MM-DD-HH",
+    zippedArchive: true,
+    // format: format.combine(enumerateErrorFormat(), format.json()),
+    // format: format.combine(format.errors({ stack: true }), print),
+    handleExceptions: true,
+  }),
+});
+
+// Create timestamp format
+const tsFormat = () => new Date().toLocaleTimeString();
+
+module.exports = logger;
