@@ -52,6 +52,7 @@ const agentSchema = mongoose.Schema({
   },
 });
 
+
 const Agent = mongoose.model("agent", agentSchema);
 const validateAgent = (agent) => {
   const schema = Joi.object({
