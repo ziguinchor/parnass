@@ -1,0 +1,51 @@
+include ../partials/front/head
+body(id=resource)
+  .d-flex.flex-column.flex-root
+    .d-flex.flex-column.flex-lg-row.flex-column-fluid
+      .d-flex.flex-column.flex-lg-row-auto.w-xl-600px.positon-xl-relative(style='background-color: #F2C98A')
+        .d-flex.flex-column.position-xl-fixed.top-0.bottom-0.w-xl-600px.scroll-y
+          .d-flex.flex-row-fluid.flex-column.text-center.p-10.pt-lg-20
+            a.py-9.mb-5(href='/')
+              img.h-80px(alt='Logo' src='/assets/media/logos/logo.png')
+            h1.fw-bolder.fs-2qx.pb-5(style='color: #986923;') PARNASS
+            p.fw-bold.fs-2(style='color: #986923;')
+              | Gestion des rendez-vous
+          .d-flex.flex-row-auto.bgi-no-repeat.bgi-position-x-center.bgi-size-contain.bgi-position-y-bottom.min-h-100px.min-h-lg-350px(style='background-image: url(/assets/media/illustrations/sketchy-1/13.png')
+      .d-flex.flex-column.flex-lg-row-fluid.py-10
+        .d-flex.flex-center.flex-column.flex-column-fluid
+          .w-lg-500px.p-10.p-lg-15.mx-auto
+
+            form#login-form.form.w-100(novalidate='novalidate' action='#' method="post")
+              .text-center.mb-10
+                h1.text-dark.mb-3 Paneau d'administration
+                .text-gray-400.fw-bold.fs-4.mb-9
+                  | Vous êtes agent ? 
+                  a.link-primary.fw-bolder(href='/courses') Cliquez ici
+              include ../partials/front/flash.pug
+              .fv-row.mb-10
+                label.form-label.fs-6.fw-bolder.text-dark Nom de d'utilisateur
+                input.form-control.form-control-lg.form-control-solid(type='text' name='username' autocomplete='off')
+              .fv-row.mb-10
+                .d-flex.flex-stack.mb-2
+                  label.form-label.fw-bolder.text-dark.fs-6.mb-0 Mot de Passe
+                  a.link-primary.fs-6.fw-bolder(href='/auth/reset') Mot de passe oublié ?
+                input.form-control.form-control-lg.form-control-solid(type='password' name='password' autocomplete='off')
+              .text-center
+                button.btn.btn-lg.btn-primary.w-100.mb-5(type='submit')
+                  span.indicator-label S'authentifier
+                  span.indicator-progress
+                    | Traitement ...
+                    span.spinner-border.spinner-border-sm.align-middle.ms-2
+
+        .d-flex.flex-center.flex-wrap.fs-6.p-5.pb-0
+          .d-flex.flex-center.fw-bold.fs-6
+            a.text-muted.text-hover-primary.px-2(href='/' target='_blank') Paneau Agent
+            a.text-muted.text-hover-primary.px-2(href='/' target='_blank') Support
+  script.
+    var hostUrl = "/assets/";
+  script(src='/assets/plugins/global/plugins.bundle.js')
+  script(src='/assets/js/scripts.bundle.js')
+  script(src='/assets/plugins/custom/datatables/datatables.bundle.js')
+  //- script(src='/assets/js/widgets.bundle.js')
+  //- script(src='/assets/js/custom/widgets.js')
+  script(src='/assets/js/app.js' type='module')

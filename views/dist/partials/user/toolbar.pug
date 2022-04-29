@@ -1,0 +1,12 @@
+#kt_toolbar.toolbar
+  #kt_toolbar_container.container-fluid.d-flex.flex-stack
+    .page-title.d-flex.align-items-center.flex-wrap.me-3.mb-5.mb-lg-0(data-kt-swapper='true' data-kt-swapper-mode='prepend' data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}")
+      h1.d-flex.align-items-center.text-dark.fw-bolder.fs-3.my-1= locals.breadCrumbs.parent
+      span.h-20px.border-gray-300.border-start.mx-4
+      ul.breadcrumb.breadcrumb-separatorless.fw-bold.fs-7.my-1
+        li.breadcrumb-item.text-muted
+          a.text-muted.text-hover-primary(href=locals.breadCrumbs.url)= locals.breadCrumbs.sub
+
+
+    .d-flex.align-items-center.gap-2.gap-lg-3
+      a.btn.btn-light-success.btn-shadow-hover.btn-sm(href='/leads/create') Nouveau RV

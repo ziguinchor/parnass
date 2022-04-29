@@ -1,0 +1,56 @@
+extends ../layout/dashboard
+
+
+block main
+  .card.card-flush
+    .card-header.align-items-center.py-5.gap-2.gap-md-5
+      .card-title 
+        .d-flex.align-items-center.position-relative.my-1
+          include ../partials/svg/loop
+          input.form-control.form-control-solid.w-250px.ps-14(type='text' data-leads-filter='search' placeholder='Rechercher Inscription')
+      .card-toolbar.flex-row-fluid.justify-content-end.gap-5
+        .w-100.mw-150px
+          select.form-select.form-select-solid(data-control='select2' data-hide-search='true' data-placeholder='Centre' data-leads-filter='center')
+            option(value='any') N'importe
+            each center in centers
+              option(value=centre)= center
+        .input-group.w-250px
+          input#leads_flatpickr.form-control.form-control-solid.rounded.rounded-end-0(placeholder='Selectionner une Date')
+          button#leads_flatpickr_clear.btn.btn-icon.btn-light
+            span.svg-icon.svg-icon-2
+              svg(xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewbox='0 0 24 24' fill='none')
+                rect(opacity='0.5' x='7.05025' y='15.5356' width='12' height='2' rx='1' transform='rotate(-45 7.05025 15.5356)' fill='black')
+                rect(x='8.46447' y='7.05029' width='12' height='2' rx='1' transform='rotate(45 8.46447 7.05029)' fill='black')
+        .w-100.mw-150px
+          select.form-select.form-select-solid(data-control='select2' data-hide-search='true' data-placeholder='Status' data-leads-filter='status')
+            option(value='any') N'importe
+            each status in statuses
+              option(value=status.value)= status.label
+        a.btn.btn-light-success.font-weight-bolder.btn-sm(href='/leads/create')
+          include ../partials/svg/two-circles
+          | Nouveau
+        a#lead-download-btn.btn.btn-light-primary.font-weight-bolder.btn-sm(href='/leads/download/?search=&center=LDF1&dateRange=' download="export.xlsx") 
+          | Télécharger
+
+
+    .card-body
+      #leads-datatable_wrapper.dataTables_wrapper.dt-bootstrap4.no-footer
+        .table-responsive
+          table#leads-datatable.table.align-middle.table-row-dashed.min-h-400px.fs-6.gy-5
+            thead
+              tr.text-start.text-gray-400.fw-bolder.fs-7.text-uppercase.gs-0
+                th.w-10px.pe-2
+                  .form-check.form-check-sm.form-check-custom.form-check-solid.me-3
+                    input.form-check-input(type='checkbox' data-kt-check='true' data-kt-check-target='#leads-datatable .form-check-input' value='1')
+                th Contact
+                th Téléphone
+                th Formation
+                th Agent
+                th Status
+                th Budget
+                th Actions
+            tbody.text-gray-600.fw-bold
+
+
+block append footer
+  script(src='/assets/js/main/leadsPage.js' type="module")

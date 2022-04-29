@@ -1,0 +1,17 @@
+#course-send-modal.modal.fade(tabindex='-1')
+  .modal-dialog
+    form#course-send-form(method="post")
+      .modal-content
+        .modal-header
+          h5.modal-title Envoi de formation via email
+          .btn.btn-icon.btn-sm.btn-active-light-primary.ms-2(data-bs-dismiss='modal' aria-label='Close')
+            span.svg-icon.svg-icon-2x
+        .modal-body
+
+          .gap-5
+            input.form-control(type="hidden" name='url' value="")
+            label.required.form-label Email
+            input.form-control(name='to' placeholder='Email' )
+        .modal-footer
+          button.btn.btn-light(type='button' data-bs-dismiss='modal') Annuler
+          button.btn.btn-primary(type='submit' data-bs-dismiss='modal') Envoyer

@@ -1,0 +1,123 @@
+extends ../layout/dashboard
+
+block main
+  form#lead-update-form.form.d-flex.flex-column.flex-lg-row(method="post")
+    .w-100.flex-lg-row-auto.w-lg-300px.mb-7.me-7.me-lg-10
+      .card.card-flush.py-4
+        .card-header
+          .card-title
+            h2 Informations Client
+        .card-body.pt-0
+          .d-flex.flex-column.gap-10
+            .fv-row
+              label.form-label Numéro de Dossier
+              .fw-bolder.fs-3 #
+                span= lead.regNum
+
+            .fv-row
+              .fv-row.flex-row-fluid
+                label.required.form-label Contact
+                input.form-control(name='contact' placeholder='Nom Complét' value=lead.contact)
+            .fv-row
+              .fv-row.flex-row-fluid
+                label.required.form-label Adress
+                input.form-control(name='address' placeholder='Adresse du Client' value=lead.address)
+            .fv-row
+              .fv-row.flex-row-fluid
+                label.required.form-label Email
+                input.form-control(name='email' placeholder='Adresse Email du Client' value=lead.email)
+
+            .fv-row
+              .fv-row.flex-row-fluid
+                label.required.form-label Téléphone
+                input.form-control(name='phone' placeholder='0033 342 23 23' value=lead.phone)
+    .d-flex.flex-column.flex-lg-row-fluid.gap-7.gap-lg-10
+
+      .card.card-flush.py-4
+        .card-header.mb-9
+          .card-title
+            h2 Détails D'inscription
+          .card-toolbar.flex-row-fluid.justify-content-end.gap-5
+            a.btn.btn-light-primary.font-weight-bolder.btn-sm(href='/leads') Retour
+            a#recap-btn.btn.btn-light-info.font-weight-bolder.btn-sm(href='/' data-bs-toggle='modal' data-bs-target='#recap-modal') Recap
+            a#lead-delete-btn.btn.btn-light-danger.font-weight-bolder.btn-sm(href='#') Supprimer
+        .card-body.pt-0
+          include ../partials/front/flash.pug
+          .d-flex.flex-column.gap-5.gap-md-7
+            //- .fs-3.fw-bolder.mb-n2 Détails de Formation
+            .d-flex.flex-column.flex-md-row.gap-5
+              .flex-row-fluid
+                label.required.form-label Numéro de Dossier  
+                input.form-control(name='regNum' placeholder='09423943872' value=lead.regNum)
+              .fv-row.flex-row-fluid
+                .fv-row
+                  label.required.form-label Status
+                  select.form-select.mb-2(data-control='select2' data-hide-search='true' data-placeholder='Selectionner une Option' name='status')
+                    option(value='pending'  selected=lead.status == "pending")
+                      | En Cours
+                    option(value='confirmed'  selected=lead.status == "confirmed") Confirmé
+                    option(value='cancelled'  selected=lead.status == "cancelled") Annulé 
+            .d-flex.flex-column.flex-md-row.gap-5
+              .fv-row.flex-row-fluid
+                .fv-row
+                  label.required.form-label Formation
+                  select#lead_course.form-select.mb-2(data-control='select2' data-placeholder='Selectionner une Option' name='course')
+                    option(value=lead.course._id)= lead.course.name
+                    each course in courses
+                      option(value=course._id)= course.name
+
+              .flex-row-fluid
+                .fv-row
+                  label.required.form-label Centre
+                  select.form-select.mb-2(data-control='select2' data-placeholder='Selectionner une Option' name='center')
+                    each center in centers
+                      option(value=centre selected=lead.center == center)= center
+            .d-flex.flex-column.flex-md-row.gap-5
+              .fv-row.flex-row-fluid
+                label.required.form-label Budget
+                input.form-control(name='budget' placeholder='Sans Unité' value=lead.budget id='budget-input')
+              .flex-row-fluid
+                label.required.form-label Réduction
+                input.form-control(name='discount' placeholder='Centre' value=lead.discount id='discount-input')
+              .flex-row-fluid
+                label.required.form-label Budget Final
+                input.form-control(placeholder='Sans Unité' disabled value=lead.finalBudget id='final-budget-input')
+            .d-flex.flex-column.flex-md-row.gap-5
+              .fv-row.flex-row-fluid
+                label.required.form-label Date de Début de la Formation
+                input.form-control(type='date' name='startDate'  placeholder='Sans Unité' value=lead.startAt)
+              .flex-row-fluid
+                label.required.form-label Date de Fin
+                input.form-control(type='date' name='endDate' placeholder='Centre 2' value=lead.endAt)
+            .d-flex.flex-column.flex-md-row.gap-5
+              .fv-row.flex-row-fluid
+                label.required.form-label Agent
+                select.form-select.mb-2(data-control='select2' data-placeholder='Selectionner une Option' name='agent')
+                  each agent in agents
+                    option(value=agent._id selected=lead.agent._id == agent._id)= agent.username
+            .d-flex.flex-column.flex-md-row.gap-5
+
+              textarea.form-control(name='comment' placeholder='Commentaire' rows="5")=lead.comment
+
+
+      .d-flex.justify-content-end
+        a.btn.btn-light.me-5(href='leads') Cancel
+        button#btn-submit.btn.btn-primary(type='submit')
+          span.indicator-label Enregistrer
+          span.indicator-progress
+            | En Cours...
+            span.spinner-border.spinner-border-sm.align-middle.ms-2
+
+block append footer
+  #recap-modal.modal.fade(tabindex='-1')
+    .modal-dialog
+      .modal-content
+        .modal-header
+          h5.modal-title Recapitulatif  
+          .btn.btn-icon.btn-sm.btn-active-light-primary.ms-2(data-bs-dismiss='modal' aria-label='Close')
+            span.svg-icon.svg-icon-2x
+        .modal-body  
+          p#recap.lh-10!= recap
+        .modal-footer
+          button.btn.btn-light(type='button' data-bs-dismiss='modal') Retour
+          button.btn.btn-primary(type='button' id='recap-btn' data-bs-dismiss='modal') Copier

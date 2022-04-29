@@ -1,0 +1,19 @@
+block modals
+  include ../../includes/modals/newLead
+  include ../../includes/modals/ccsKey
+  include ../../includes/modals/newEmail
+  include ../../includes/modals/CourseSend
+block footer
+  #kt_footer.footer.py-4.d-flex.flex-lg-column
+    .container-fluid.d-flex.flex-column.flex-md-row.align-items-center.justify-content-between
+      .text-dark.order-2.order-md-1
+        span.text-muted.fw-bold.me-1 2022&copy;
+        a.text-gray-800.text-hover-primary(href='/' target='_blank') Parnass Call
+  script.
+    var hostUrl = "/assets/";
+  script(src='/assets/plugins/global/plugins.bundle.js')
+  script(src='/assets/js/scripts.bundle.js')
+  script(src='/assets/plugins/custom/datatables/datatables.bundle.js')
+  //- script(src='/assets/js/widgets.bundle.js')
+  //- script(src='/assets/js/custom/widgets.js')
+  script(src='/assets/js/app.js' type='module')

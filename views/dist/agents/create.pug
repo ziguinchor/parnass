@@ -1,0 +1,56 @@
+extends ../layout/dashboard
+
+block main
+  form.form.d-flex.flex-column#agent-create-form(method="post").col-xl-8
+    .card.card-flush.py-4.mb-5
+      .card-header
+        .card-title
+          h2 Nouveau Agent
+      .card-body.pt-0
+        include ../partials/front/flash.pug
+        .d-flex.flex-column.gap-5.gap-md-7
+          //- .fs-3.fw-bolder.mb-n2 Détails de Formation
+          .d-flex.flex-column.flex-md-row.gap-5
+          .flex-row-fluid
+            label.required.form-label Nom d'utilisateur
+            input.form-control(name='username' placeholder='username', value=username) 
+            .text-muted.fs-7.mt-3 
+              | Ne peut pas être modifié ultérieurement
+          .flex-row-fluid
+            label.required.form-label Mot de Passe
+            input.form-control(type='password' name='password' placeholder='Mot de Passe')
+
+          .d-flex.flex-column.flex-md-row.gap-5
+            .fv-row.flex-row-fluid
+              label.required.form-label Nom et Prénom
+              input.form-control(name='fullName' placeholder='Chris Doe'  )
+            .flex-row-fluid
+              label.form-label Email
+              input.form-control(name='email' placeholder='chrise@gmail.com' )
+          .flex-row-fluid
+            label.form-label Téléphone
+            input.form-control(name='phone' placeholder='06 06 06 06 06' )
+          .d-flex.flex-column.flex-md-row.gap-5
+            .fv-row.flex-row-fluid
+              .fv-row
+                label.form-label Role
+                select.form-select.mb-2(data-control='select2' data-hide-search='true' data-placeholder='Selectionner une Option' name='role')
+                  option(value='agent') Agent
+                .text-muted.fs-7
+                  | Agent par Défaut   
+            .flex-row-fluid
+              .fv-row
+                label.form-label Status
+                select.form-select.mb-2(data-control='select2' data-hide-search='true' data-placeholder='Selectionner une Option' name='status')
+                  option(value='active'  selected='selected') Active
+                  option(value='suspended')
+                    | Suspendu
+
+    .d-flex.justify-content-end
+      a.btn.btn-light.me-5(href='/agents') Retour
+      button#btn-submit.btn.btn-primary.me-10(type='submit')
+        span.indicator-label
+          | Savegarder
+        span.indicator-progress
+          | En cours... 
+          span.spinner-border.spinner-border-sm.align-middle.ms-2

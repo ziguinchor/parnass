@@ -1,0 +1,14 @@
+include ../partials/user/head
+body#kt_body.header-fixed.header-tablet-and-mobile-fixed.toolbar-enabled.toolbar-fixed.aside-enabled.aside-fixed(style="--kt-toolbar-height:55px;--kt-toolbar-height-tablet-and-mobile:55px")
+  .d-flex.flex-column.flex-root
+    .page.d-flex.flex-row.flex-column-fluid
+      include ../partials/user/aside
+      #kt_wrapper.wrapper.d-flex.flex-column.flex-row-fluid
+        include ../partials/user/header
+        #kt_content.content.d-flex.flex-column.flex-column-fluid
+          include ../partials/user/toolbar
+          #kt_post.post.d-flex.flex-column-fluid
+            #kt_content_container.container-xxl
+              block main
+
+        include ../partials/user/footer

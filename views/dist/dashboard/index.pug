@@ -1,0 +1,73 @@
+extends ../layout/dashboard
+
+block main
+  include ../partials/front/flash.pug
+  .row.g-5.g-xl-12
+    .col-xl-3.mb-xl-10
+      .card.bg-primary.h-md-100
+        .card-body.d-flex.flex-column.pt-13.pb-14
+          .m-0
+            p.text-white.text-center.lh-lg
+              | Agent Chamption
+            h1.fw-bolder.text-white.text-center.lh-lg= champion.fullName
+            .d-flex.mb-2.text-center
+              span.fs-3x.fw-bolder.text-white.text-center.me-2.lh-1= champion.totalBudget
+              span.fs-1.fw-bold.text-white.text-center.me-1.mt-n1 €
+              br
+              span.badge.badge-success.fs-6.p-2.d-flex.align-items-center.align-self-center= champion.sum
+                | &nbsp;Ventes
+
+            .flex-grow-1.bgi-no-repeat.bgi-size-contain.bgi-position-x-center.card-rounded-bottom.h-200px.mh-200px.my-5.mb-lg-12(style="background-image:url('assets/media/illustrations/dozzy-1/7-dark.png')")
+          .text-center
+            a.btn.btn-white.btn-color-gray-800.me-2(href=`/agents/${champion.id}`) Voir Agent
+
+    .col-xl-9.mb-5.mb-xl-10
+      .card.card-xl-stretch.mb-xl-8.h-md-100
+        .card-header.border-0.pt-5
+          h3.card-title.align-items-start.flex-column
+            span.card-label.fw-bolder.fs-3.mb-1 
+              |Chiffre D'affaire Quotidien
+            span.text-muted.fw-bold.fs-7 Du mois courant
+        .card-body
+          .mb-2
+            h3.card-label.fw-bolder.fs-1.mb-1= totalSales
+              span.fs-4.fw-bold.text-gray-400.me-1.align-self-start  €
+          #monthly-revenue-chart(style='height: 350px')
+
+  .row.g-5.g-xl-10.mb-xl-10
+    .col-md-6.col-lg-6.col-xl-6.col-xxl-6.mb-md-6.mb-xl-10
+      .card.card-flush.h-md-50.mb-5.mb-xl-10
+        .card-header.pt-5
+          .card-title.d-flex.flex-column
+            .d-flex.align-items-center
+              span.card-label.fw-bolder.fs-3.mb-1 Revenue Par Centre
+              span.fs-4.fw-bold.text-gray-400.me-1.align-self-start en €
+
+            span.text-gray-400.pt-1.fw-bold.fs-6 Du mois Courant
+        .card-body.pt-2.pb-4.d-flex.align-items-center(style='height: 830px;')
+          .d-flex.flex-center.me-5.pt-2.mb-6
+            #revenue-per-center-chart(style='min-width: 520px; min-height: 550px;')
+
+    .col-md-6.col-lg-6.col-xl-6.col-xxl-6.mb-md-6.mb-xl-10
+      .card.card-flush.h-md-50.mb-5.mb-xl-10
+        .card-header.pt-5
+          .card-title.d-flex.flex-column
+            .d-flex.align-items-center
+              span.card-label.fw-bolder.fs-3.mb-1 Performance
+              span.fs-4.fw-bold.text-gray-400.me-1.align-self-start %
+
+            span.text-gray-400.pt-1.fw-bold.fs-6 Du mois courant
+        .card-body.pt-2.pb-4.d-flex.align-items-center(style='height: 830px;')
+          .d-flex.flex-center.me-5.pt-2.mb-6
+            #conversion-rate-chart(style='min-width: 520px; min-height: 550px;')
+
+
+
+
+block append footer
+  script(src='/assets/js/main/dashboardPage.js'  type="module")
+
+
+
+
+

@@ -1,0 +1,24 @@
+#new-email-modal.modal.fade(tabindex='-1')
+  .modal-dialog
+    form#mail-send-form(method="post")
+      .modal-content
+        .modal-header
+          h5.modal-title Nouveau Message
+          .btn.btn-icon.btn-sm.btn-active-light-primary.ms-2(data-bs-dismiss='modal' aria-label='Close')
+            span.svg-icon.svg-icon-2x
+        .modal-body
+
+          .gap-5.mt-5
+            input.form-control(type="hidden" name='url' value="")
+            label.required.form-label Destinataire
+            input.form-control(name='to' placeholder='Destinataire' )
+          .gap-5.mt-5
+            label.required.form-label Sujet
+            input.form-control(name='subject' placeholder='Sujet' )
+          .gap-5.mt-5
+            label.required.form-label Message
+            textarea.form-control(name="message" placeholder='Corps du message')
+        .modal-footer
+          button.btn.btn-light(type='button' data-bs-dismiss='modal') Annuler
+          button.btn.btn-primary(type='submit' data-bs-dismiss='modal') Envoyer
+

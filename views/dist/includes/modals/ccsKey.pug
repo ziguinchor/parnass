@@ -1,0 +1,17 @@
+#ccs-key-modal.modal.fade(tabindex='-1')
+  .modal-dialog
+    form#ssn-form(method="post")
+      .modal-content
+        .modal-header
+          h5.modal-title Calcul la clé du numéro sécurité sociale
+          .btn.btn-icon.btn-sm.btn-active-light-primary.ms-2(data-bs-dismiss='modal' aria-label='Close')
+            span.svg-icon.svg-icon-2x
+        .modal-body
+          p Modal body text goes here.
+          .gap-5.mb-5
+            label.required.form-label CODE INSEE
+            input.form-control(name='code' id="code" placeholder='CODE INSEE' )
+          .ssn-result
+        .modal-footer
+          button.btn.btn-light(type='button' data-bs-dismiss='modal') Retour
+          button.btn.btn-primary(type='submit') Verifier

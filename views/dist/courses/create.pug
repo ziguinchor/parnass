@@ -1,0 +1,43 @@
+extends ../layout/dashboard
+
+block main
+  form.form.d-flex.flex-column.col-lg-12#course-create-form
+    .card.card-flush.py-4.mb-5
+      .card-header
+        .card-title
+          h2 Nouvelle Formation
+      .card-body.pt-0
+        include ../partials/front/flash.pug
+        .d-flex.flex-column.gap-5.gap-md-7
+          //- .fs-3.fw-bolder.mb-n2 Détails de Formation
+          .d-flex.flex-column.flex-md-row.gap-5
+            .flex-row-fluid
+              label.required.form-label Formation
+              input.form-control(name='name' placeholder='Formation')
+          .flex-row-fluid
+            label.required.form-label Centre
+            select.form-select.mb-2(data-control='select2' data-placeholder='Selectionner une Option' name='center')
+              each center in centers
+                option(value=centre)= center
+
+          .d-flex.flex-column.flex-md-row.gap-5
+            .fv-row.flex-row-fluid
+              label.form-label Lien de la formation
+              input.form-control(name='url' placeholder='Lien de la formation')
+
+
+          .d-flex.flex-column.flex-md-row.gap-5
+            .flex-row-fluid
+              label.form-label Budget
+              input.form-control(name='budget' placeholder='En euro sans unité')
+
+
+
+    .d-flex.justify-content-end
+      a.btn.btn-light.me-5(href='/courses') Retour
+      button#btn-submit.btn.btn-primary.me-10(type='submit')
+        span.indicator-label
+          | Savegarder
+        span.indicator-progress
+          | En cours... 
+          span.spinner-border.spinner-border-sm.align-middle.ms-2

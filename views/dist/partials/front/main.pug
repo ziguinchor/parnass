@@ -1,0 +1,58 @@
+#kt_content.content.d-flex.flex-column.flex-column-fluid
+  #kt_toolbar.toolbar
+  // begin::Container
+  #kt_toolbar_container.container-fluid.d-flex.flex-stack
+    // begin::Page title
+    .page-title.d-flex.align-items-center.flex-wrap.me-3.mb-5.mb-lg-0(data-kt-swapper='true' data-kt-swapper-mode='prepend' data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}")
+    // begin::Title
+    h1.d-flex.align-items-center.text-dark.fw-bolder.fs-3.my-1 Orders Listing
+    // end::Title
+    // begin::Separator
+    span.h-20px.border-gray-300.border-start.mx-4
+    // end::Separator
+    // begin::Breadcrumb
+    ul.breadcrumb.breadcrumb-separatorless.fw-bold.fs-7.my-1
+      // begin::Item
+      li.breadcrumb-item.text-muted
+      a.text-muted.text-hover-primary(href='../../demo1/dist/index.html') Home
+      // end::Item
+      // begin::Item
+      li.breadcrumb-item
+      span.bullet.bg-gray-300.w-5px.h-2px
+      // end::Item
+      // begin::Item
+      li.breadcrumb-item.text-muted eCommerce
+      // end::Item
+      // begin::Item
+      li.breadcrumb-item
+      span.bullet.bg-gray-300.w-5px.h-2px
+      // end::Item
+      // begin::Item
+      li.breadcrumb-item.text-muted Sales
+      // end::Item
+      // begin::Item
+      li.breadcrumb-item
+      span.bullet.bg-gray-300.w-5px.h-2px
+      // end::Item
+      // begin::Item
+      li.breadcrumb-item.text-dark Orders Listing
+      // end::Item
+      // end::Breadcrumb
+      // end::Page title
+      // begin::Actions
+      .d-flex.align-items-center.gap-2.gap-lg-3
+      // begin::Primary button
+      a.btn.btn-sm.btn-primary(href='../../demo1/dist/.html' data-bs-toggle='modal' data-bs-target='#kt_modal_create_app') Create
+      // end::Primary button
+      // end::Actions
+      // end::Container
+      // end::Toolbar
+      // begin::Post
+      #kt_post.post.d-flex.flex-column-fluid
+        // begin::Container
+        #kt_content_container.container-xxl
+        // begin::Products
+        // end::Products
+        // end::Container
+        // end::Post
+        // end::Content

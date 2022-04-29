@@ -1,0 +1,59 @@
+extends ../layout/dashboard
+
+block main
+  form#agent-update-form.form.d-flex.flex-column.col-xl-12(method="post")
+    input(type="hidden" name="id" value=_id)
+    .card.card-flush.py-4.mb-5
+      .card-header
+        .card-title
+          h2= agent.fullName 
+        .card-toolbar.flex-row-fluid.justify-content-end.gap-5
+          a.btn.btn-light-primary.font-weight-bolder.btn-sm(href='/agents') Retour
+          a#agent-delete-btn.btn.btn-light-danger.font-weight-bolder.btn-sm(href='#') Supprimer
+
+      .card-body.pt-0
+        include ../partials/front/flash.pug
+        .d-flex.flex-column.gap-5.gap-md-7
+          //- .fs-3.fw-bolder.mb-n2 Détails de Formation
+          .d-flex.flex-column.flex-md-row.gap-5
+          .flex-row-fluid
+            label.required.form-label Nom d'utilisateur
+            input.form-control( name='username' placeholder='username', value=agent.username) 
+          .flex-row-fluid
+            label.form-label Nouveau Mot De pass
+            input.form-control.mb-2(name='password' placeholder="______" value="______")
+            .text-muted.fs-7
+              | Sinon laissez le vide
+
+          .d-flex.flex-column.flex-md-row.gap-5
+            .fv-row.flex-row-fluid
+              label.form-label Nom et Prénom
+              input.form-control(name='fullName' placeholder='Chris Doe' value=agent.fullName )
+            .flex-row-fluid
+              label.required.form-label Email
+              input.form-control(name='email' placeholder='chrise@gmail.com' value=agent.email)
+          .flex-row-fluid
+            label.form-label Téléphone
+            input.form-control(name='phone' placeholder='06 06 06 06 06' value=agent.phone)
+          .d-flex.flex-column.flex-md-row.gap-5
+            .fv-row.flex-row-fluid
+              .fv-row
+                label.form-label Role
+                select.form-select.mb-2(data-control='select2' data-hide-search='true' data-placeholder='Selectionner une Option' name='role')
+                  option(value='agent' selected) Agent
+            .flex-row-fluid
+              .fv-row
+                label.form-label Status
+                select.form-select.mb-2(data-control='select2' data-hide-search='true' data-placeholder='Selectionner une Option' name='status')
+                  option(value='active' , selected=agent.status == "active") Active
+                  option(value='suspended', selected=agent.status == "suspended") Suspendu
+
+
+    .d-flex.justify-content-end
+      a.btn.btn-light.me-5(href='/agents') Retour
+      button#btn-submit.btn.btn-primary.me-10(type='submit')
+        span.indicator-label
+          | Savegarder
+        span.indicator-progress
+          | En cours... 
+          span.spinner-border.spinner-border-sm.align-middle.ms-2
