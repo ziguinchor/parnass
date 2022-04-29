@@ -4,14 +4,15 @@ const bcrypt = require("bcrypt");
 const config = require("config");
 const jwt = require("jsonwebtoken");
 const Joi = require("joi");
+const catchAsync = require("../utils/catchAsync");
 
-exports.index = async (req, res) => {
+exports.index = catchAsync(async (req, res) => {
   res.render("auth/login", {
     resource: "auth",
   });
-};
+});
 
-exports.login = async (req, res) => {
+exports.login = catchAsync(async (req, res) => {
   const { error } = validateAuth(req.body);
   if (error)
     return res.status(400).send({
@@ -47,9 +48,9 @@ exports.login = async (req, res) => {
         user: _.pick(user, ["fullName", "username", "email", "phone"]),
       },
     });
-};
+});
 
-exports.register = async (req, res) => {
+exports.register = catchAsync(async (req, res) => {
   const { error } = validate(req.body);
   if (error)
     return res.status(400).send({
@@ -117,9 +118,9 @@ exports.register = async (req, res) => {
         "Une erreur s'est produit, Veuillez verifier les information sasies!",
     });
   }
-};
+});
 
-exports.logout = async (req, res) => {
+exports.logout = catchAsync(async (req, res) => {
   const accept = req.accepts(["html", "json"]);
   if (accept === "html") {
     return res.clearCookie("access_token").redirect("/auth/login");
@@ -128,7 +129,7 @@ exports.logout = async (req, res) => {
     status: "success",
     message: "Vous êtes déconnecté!",
   });
-};
+});
 
 function validateAuth(user) {
   const schema = Joi.object({

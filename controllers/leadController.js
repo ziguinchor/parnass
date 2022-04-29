@@ -11,6 +11,7 @@ const AppError = require("../utils/appError");
 const Joi = require("joi");
 const { parse } = require("config/parser");
 const { filter } = require("lodash");
+const catchAsync = require("../utils/catchAsync");
 
 let ObjectId = require("mongoose").Types.ObjectId;
 
@@ -18,7 +19,7 @@ let ObjectId = require("mongoose").Types.ObjectId;
  * Display a listing of the rsource.
  * * DONE
  */
-exports.index = async (req, res, next) => {
+exports.index = catchAsync(async (req, res, next) => {
   const accept = req.accepts(["html", "json"]);
   if (accept === "json") {
     const count = await Lead.find().count();
@@ -56,11 +57,11 @@ exports.index = async (req, res, next) => {
       { label: "En cours", value: "pending" },
     ],
   });
-};
+});
 /**
  * Show the form for creating a new resource.
  */
-exports.create = async (req, res) => {
+exports.create = catchAsync(async (req, res) => {
   const [courses, agents] = await Promise.all([Course.find(), Agent.find()]);
   res.render("leads/create", {
     courses,
@@ -68,11 +69,11 @@ exports.create = async (req, res) => {
     resource: "leads",
     centers: getCenters(),
   });
-};
+});
 /**
  * Store a newly created resource in storage.
  */
-exports.store = async (req, res) => {
+exports.store = catchAsync(async (req, res) => {
   const { error } = validate(req.body);
   if (error)
     return res.status(400).send({
@@ -139,11 +140,11 @@ exports.store = async (req, res) => {
       message: "Une erreur est survenue! Veillez reessayer plus tard",
     });
   }
-};
+});
 /**
  * Display the specified resource.
  */
-exports.show = async (req, res) => {
+exports.show = catchAsync(async (req, res) => {
   const lead = await Lead.findById(req.params.id)
     .select(
       "_id regNum contact address email phone course budget center discount finalBudget startAt endAt comment status agent createdAt"
@@ -155,11 +156,11 @@ exports.show = async (req, res) => {
     lead,
     resource: "leads",
   });
-};
+});
 /**
  * Show the form for editing the specified resource.
  */
-exports.edit = async (req, res) => {
+exports.edit = catchAsync(async (req, res) => {
   if (!ObjectId.isValid(req.params.id)) return res.status(404).render("404");
 
   const [lead, courses, agents] = await Promise.all([
@@ -179,11 +180,11 @@ exports.edit = async (req, res) => {
     resource: "leads",
     recap: recap(lead),
   });
-};
+});
 /**
  * Update the specified resource in storage.
  */
-exports.update = async (req, res) => {
+exports.update = catchAsync(async (req, res) => {
   const { error } = validate(req.body);
   if (error)
     return res.status(400).send({
@@ -244,11 +245,11 @@ exports.update = async (req, res) => {
     message: "Rendez-vous Ajouté avec succes!",
     data: lead,
   });
-};
+});
 /**
  * Remove the specified resource from storage.
  */
-exports.destroy = async (req, res) => {
+exports.destroy = catchAsync(async (req, res) => {
   const lead = await Lead.findByIdAndRemove(req.params.id);
   if (!lead)
     return res.status(404).send({
@@ -259,12 +260,12 @@ exports.destroy = async (req, res) => {
     status: "success",
     message: "Rendez-vous suprimé avec succes!",
   });
-};
+});
 
 /**
  * Generate and downloadd Leads Spreadsheet
  */
-exports.download = async (req, res) => {
+exports.download = catchAsync(async (req, res) => {
   const filterQuery = {};
   let from = new Date();
   let to = from;
@@ -335,7 +336,7 @@ exports.download = async (req, res) => {
   return workbook.xlsx.write(res).then(function () {
     res.status(200).end();
   });
-};
+});
 
 /**
  * Parse Search Query

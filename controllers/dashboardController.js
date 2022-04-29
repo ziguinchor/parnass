@@ -12,6 +12,8 @@ const { Console } = require("winston/lib/winston/transports");
 var ObjectId = require("mongoose").Types.ObjectId;
 
 exports.index = catchAsync(async (req, res, next) => {
+
+  throw new Error("test error");
   const { start, end, today } = CurrMonthRange();
   const stats = await profitPerAgent(start, end, "confirmed");
 

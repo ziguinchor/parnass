@@ -1,12 +1,30 @@
 {
+  "app": {
+    "port": 3000
+  },
   "jwtPrivateKey": "parnassUnsecureJwtPrivateKey",
 
-  "name": "Parnass",
+  "appName": "Parnass",
   "db": {
     "host": "mongodb+srv://parnass:oxygen@cluster0.szi24.mongodb.net/parnass2"
+  },
+  "mail": {
+    "server": "mail.privateemail.com",
+    "user": "cpf@compteformations.com",
+    "pass": "p2c@2022",
+    "port": 465,
+    "from": "Mon Compte Formation <cpf@compteformations.com>"
   },
   "rateLimit": {
     "windowMin": 60,
     "max": 5
+  },
+  "session": {
+    "secret": "ro7crWiWySCleJ4Vu2yXYIjSilFJTnSA9VYXdaEpYuna1lIFaseq7OM8jJqmD5eUvF091fslHUU8mNJxb63SZSOkCqYptAigcEOC"
+  },
+  "logging": {
+    "level": "error",
+    "db": "parnass",
+    "collection": "logs"
   }
 }

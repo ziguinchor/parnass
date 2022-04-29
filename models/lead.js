@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const Joi = require("Joi");
+const Joi = require("joi");
 const { formatDate } = require("../utils/helpers");
 
 const JoiDate = require("@hapi/joi-date");

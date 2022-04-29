@@ -1,6 +1,7 @@
 const express = require("express");
 const { Agent, validate } = require("../models/agent");
 const { Lead } = require("../models/lead");
+const catchAsync = require("../utils/catchAsync");
 
 const bcrypt = require("bcrypt");
 let ObjectId = require("mongoose").Types.ObjectId;
@@ -8,7 +9,7 @@ let ObjectId = require("mongoose").Types.ObjectId;
 /**
  * Display a listing of the resource.
  */
-exports.index = async (req, res) => {
+exports.index = catchAsync(async (req, res) => {
   const accept = req.accepts(["html", "json"]);
   if (accept === "json") {
     const count = await Agent.find().count();
@@ -49,20 +50,20 @@ exports.index = async (req, res) => {
     });
   }
   res.render("agents/index");
-};
+});
 /**
  * Show the form for creating a new resource.
  * * DONE
  */
-exports.create = (req, res) => {
+exports.create = catchAsync(async (req, res) => {
   res.render("agents/create", {
     resource: "agents",
   });
-};
+});
 /**
  * Store a newly created resource in storage.
  */
-exports.store = async (req, res) => {
+exports.store = catchAsync(async (req, res) => {
   const { error } = validate(req.body);
   if (error)
     return res.status(400).send({
@@ -105,21 +106,21 @@ exports.store = async (req, res) => {
       message: "Une erreur s'est produite!",
     });
   }
-};
+});
 /**
  * Display the specified resource.
  */
-exports.show = async (req, res) => {
+exports.show = catchAsync(async (req, res) => {
   const agent = await Agent.findById(req.params.id).select(
     "_id fullName username password phone email status role"
   );
   if (!agent) return res.status(404).render("404");
   res.render("agents/details", agent);
-};
+});
 /**
  * Show the form for editing the specified resource.
  */
-exports.edit = async (req, res) => {
+exports.edit = catchAsync(async (req, res) => {
   if (!ObjectId.isValid(req.params.id)) return res.status(404).render("404");
   const agent = await Agent.findById(req.params.id).select(
     "_id fullName username password phone email status role"
@@ -129,12 +130,12 @@ exports.edit = async (req, res) => {
     agent,
     resource: "agents",
   });
-};
+});
 /**
  * Update the specified resource in storage.
  * * API
  */
-exports.update = async (req, res) => {
+exports.update = catchAsync(async (req, res) => {
   const { error } = validate(req.body);
   if (error)
     return res.status(400).send({
@@ -166,12 +167,12 @@ exports.update = async (req, res) => {
     data: agent,
     resource: agent,
   });
-};
+});
 /**
  * Remove the specified resource from storage.
  * * API
  */
-exports.destroy = async (req, res) => {
+exports.destroy = catchAsync(async (req, res) => {
   const agent = await Agent.findByIdAndRemove(req.params.id);
   if (!agent)
     return res.status(404).send({
@@ -181,7 +182,5 @@ exports.destroy = async (req, res) => {
   res.send({
     status: "success",
     message: "Agent suprimé avec Succes!",
-    // ! Hide Password field
-    // data: JSON.stringify(agent)
   });
-};
+});

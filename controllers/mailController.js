@@ -1,7 +1,8 @@
 const nodeMailer = require("nodemailer");
 const config = require("config");
+const catchAsync = require("../utils/catchAsync");
 
-exports.mail = (param) => {
+exports.mail = catchAsync(async (param) => {
   const transporter = nodeMailer.createTransport({
     service: "server-smtp",
     host: config.get("mail.server"),
@@ -19,7 +20,7 @@ exports.mail = (param) => {
     // text: "",
     html: param.body,
   };
-  transporter.sendMail(options, (err, info) => {
+  await transporter.sendMail(options, (err, info) => {
     if (err) throw new Error(err);
   });
-};
+});

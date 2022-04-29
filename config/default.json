@@ -23,6 +23,8 @@
     "secret": "ro7crWiWySCleJ4Vu2yXYIjSilFJTnSA9VYXdaEpYuna1lIFaseq7OM8jJqmD5eUvF091fslHUU8mNJxb63SZSOkCqYptAigcEOC"
   },
   "logging": {
-    "level": "error"
+    "level": "error",
+    "db": "parnass",
+    "collection": "logs"
   }
 }
