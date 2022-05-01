@@ -111,8 +111,9 @@ async function calcMonthlyStat(start, end, status) {
       },
     },
   ]);
+
   if (tn.length) return tn[0].total;
-  else return 0;
+  return 0;
 }
 /**
  * Calc Daily Revenues / status
