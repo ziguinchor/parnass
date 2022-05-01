@@ -12,8 +12,6 @@ const { Console } = require("winston/lib/winston/transports");
 var ObjectId = require("mongoose").Types.ObjectId;
 
 exports.index = catchAsync(async (req, res, next) => {
-
-  throw new Error("test error");
   const { start, end, today } = CurrMonthRange();
   const stats = await profitPerAgent(start, end, "confirmed");
 
@@ -113,7 +111,8 @@ async function calcMonthlyStat(start, end, status) {
       },
     },
   ]);
-  return tn[0].total;
+  if (tn.length) return tn[0].total;
+  else return 0;
 }
 /**
  * Calc Daily Revenues / status

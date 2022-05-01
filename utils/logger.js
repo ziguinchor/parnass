@@ -52,7 +52,7 @@ const logger = winston.createLogger({
       // format: format.combine(format.errors({ stack: true }), print),
       handleExceptions: true,
     }),
-    // new winston.transports.Console({ level: "error", colorize: true }),
+    new winston.transports.Console({ level: "error", colorize: true }),
     new winston.transports.MongoDB({
       db: config.get("db.host"),
       collection: "logs",
