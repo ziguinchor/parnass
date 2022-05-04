@@ -8,7 +8,7 @@ block main
         .card-title
           h2= course.name
         .card-toolbar.flex-row-fluid.justify-content-end.gap-5
-          a.btn.btn-light-primary.font-weight-bolder.btn-sm(href='/courses') Retour
+          a.btn.btn-light-primary.font-weight-bolder.btn-sm(href='/courses/manage') Retour
           a#course-delete-btn.btn.btn-light-danger.font-weight-bolder.btn-sm(href='#') Supprimer
       .card-body.pt-0
         include ../partials/front/flash.pug
@@ -38,7 +38,7 @@ block main
 
 
     .d-flex.justify-content-end
-      a.btn.btn-light.me-5(href='/courses') Retour
+      a.btn.btn-light.me-5(href='/courses/manage') Retour
       button#btn-submit.btn.btn-primary.me-10(type='submit')
         span.indicator-label
           | Savegarder

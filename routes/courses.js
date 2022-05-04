@@ -4,6 +4,10 @@ const auth = require("../middleware/auth");
 const router = express.Router();
 
 router.route("/").get(courseController.index).post(courseController.store);
+router
+  .route("/manage")
+  .get(auth, courseController.index)
+  .post(courseController.store);
 router.route("/create").get(auth, courseController.create);
 router.route("/send-course").post(courseController.sendCourse);
 router.route("/send-mail").post(courseController.sendCustomEmail);

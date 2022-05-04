@@ -4,6 +4,11 @@ const mongoose = require("mongoose");
 
 module.exports = () => {
   // DB Connection
-  mongoose.connect(config.db.host).then(() => winston.info("Connected to DB"));
+  mongoose
+    .connect(config.db.host, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    })
+    .then(() => winston.info("Connected to DB"));
   // .catch((err) => console.log(`Could not connect to db... ${err}`));
 };

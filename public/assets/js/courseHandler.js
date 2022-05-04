@@ -10,7 +10,7 @@ export const courseHandler = {
       request
         .delete(location.href)
         .then(({ message }) => {
-          redirect(`/courses/`, ["success", message]);
+          redirect(`/courses/manage`, ["success", message]);
         })
         .catch((err) => {
           err.then(({ message }) => {
@@ -38,7 +38,7 @@ export const courseHandler = {
         .put(window.location.href, courseUpdateForm)
         .then(({ message, data }) => flash("success", message))
         .catch((err) => {
-          console.dir(err);
+          // console.dir(err);
           err.then(({ message }) => {
             flash("danger", message);
           });
