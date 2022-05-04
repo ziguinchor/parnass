@@ -43,14 +43,6 @@ block main
               .flex-row-fluid
                 label.required.form-label Numéro de Dossier  
                 input.form-control(name='regNum' placeholder='09423943872')
-              .fv-row.flex-row-fluid
-                .fv-row
-                  label.required.form-label Status
-                  select#lead_center.form-select.mb-2(data-control='select2' data-hide-search='true' data-placeholder='Selectionner une Option' name='status')
-                    option(value='pending')
-                      | En Cours
-                    option(value='confirmed') Confirmé
-                    option(value='cancelled') Annulé 
             .d-flex.flex-column.flex-md-row.gap-5
               .fv-row.flex-row-fluid
                 .fv-row
@@ -59,7 +51,7 @@ block main
                     each course in courses
                       option(value=course._id)= course.name
                   .text-muted.fs-7
-                    | Set the date of the order to process.
+                    | Ne peut pas être modifié ultérieurement
               .flex-row-fluid
                 .fv-row
                   label.required.form-label Centre
@@ -90,12 +82,18 @@ block main
                 select.form-select.mb-2(data-control='select2' data-placeholder='Selectionner une Option' name='agent')
                   each agent in agents
                     option(value=agent._id)= agent.username
+              .fv-row.flex-row-fluid
+                label.required.form-label Mot de Passe
+                input.form-control(type='password' name='password' )
             .d-flex.flex-column.flex-md-row.gap-5 
               textarea.form-control(name='comment' placeholder='Commentaire' rows="5")
 
 
       .d-flex.justify-content-end
-        a.btn.btn-light.me-5(href='/leads') Annuler
+        if(locals.me) 
+          a.btn.btn-light.me-5(href='/leads') Annuler
+        else
+          a.btn.btn-light.me-5(href='/courses') Annuler
         button#btn-submit.btn.btn-primary(type='submit')
           span.indicator-label Enregistrer
           span.indicator-progress

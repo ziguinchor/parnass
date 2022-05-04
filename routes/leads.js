@@ -7,6 +7,7 @@ const router = express.Router();
 router.route("/").get(auth, leadController.index).post(leadController.store);
 
 router.route("/create").get(leadController.create);
+router.route("/super-create").get(auth, leadController.create);
 
 router.route("/download/").get(auth, leadController.download);
 

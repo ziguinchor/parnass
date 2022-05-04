@@ -101,7 +101,11 @@ block main
 
 
       .d-flex.justify-content-end
-        a.btn.btn-light.me-5(href='leads') Cancel
+        if(locals.me) 
+          a.btn.btn-light.me-5(href='/leads') Cancel
+        else
+          a.btn.btn-light.me-5(href='/courses') Cancel
+        
         button#btn-submit.btn.btn-primary(type='submit')
           span.indicator-label Enregistrer
           span.indicator-progress

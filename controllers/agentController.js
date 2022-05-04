@@ -184,3 +184,13 @@ exports.destroy = catchAsync(async (req, res) => {
     message: "Agent suprimé avec Succes!",
   });
 });
+
+
+/**
+ * Agent Auth
+ */
+
+exports.authAgent = catchAsync(async (req, res) => {
+  const token = req.cookies.access_token;
+
+})

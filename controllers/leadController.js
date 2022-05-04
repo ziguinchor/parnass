@@ -74,12 +74,17 @@ exports.create = catchAsync(async (req, res) => {
  * Store a newly created resource in storage.
  */
 exports.store = catchAsync(async (req, res) => {
+  // check if user is not authenticated
+
   const { error } = validate(req.body);
   if (error)
     return res.status(400).send({
       status: "fail",
       message: error.details[0].message,
     });
+
+  // else if user is auth
+  // do nothing
 
   const [course, agent] = await Promise.all([
     Course.findById(req.body.course),

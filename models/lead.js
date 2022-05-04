@@ -116,10 +116,12 @@ const validateLead = (lead) => {
     email: Joi.string().email().max(255).label("Adress Email"),
     status: Joi.string()
       .min(3)
+      .optional()
       .valid("pending", "confirmed", "cancelled")
       .label("Status"),
     comment: Joi.string().max(500).optional().allow("").label("Note"),
     agent: Joi.string().hex().length(24),
+    password: Joi.string().max(255).optional().allow("").label("Mot de passe"),
   });
 
   return schema.validate(lead);
