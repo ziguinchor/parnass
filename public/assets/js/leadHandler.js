@@ -25,7 +25,9 @@ export const leadHandler = {
       request
         .post("/leads", leadCreateForm)
         .then(({ message, data }) => {
-          redirect(`/leads/${data._id}`, ["success", message]);
+          if (window.location.href.includes("super-create"))
+            redirect(`/leads/${data._id}`, ["success", message]);
+          else redirect("/courses", ["success", message]);
         })
         .catch((err) => {
           console.dir(err);

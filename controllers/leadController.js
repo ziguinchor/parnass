@@ -12,6 +12,9 @@ const Joi = require("joi");
 const { parse } = require("config/parser");
 const { filter } = require("lodash");
 const catchAsync = require("../utils/catchAsync");
+const config = require("config");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 
 let ObjectId = require("mongoose").Types.ObjectId;
 
@@ -74,14 +77,49 @@ exports.create = catchAsync(async (req, res) => {
  * Store a newly created resource in storage.
  */
 exports.store = catchAsync(async (req, res) => {
-  // check if user is not authenticated
-
   const { error } = validate(req.body);
   if (error)
     return res.status(400).send({
       status: "fail",
       message: error.details[0].message,
     });
+
+  const token = req.cookies.access_token;
+  if (token) {
+    try {
+      const decodedPyalod = jwt.verify(
+        token,
+        config.get("jwtPrivateKey"),
+        (err, decoded) => {
+          if (err)
+            throw new AppError(
+              "Vous n'êtes pas autorisé à effectuer cette action! Invalid jeton de sécurité."
+            );
+        }
+      );
+    } catch (ex) {
+      throw new AppError(
+        "Vous n'êtes pas autorisé à effectuer cette action! Invalid jeton de sécurité."
+      );
+    }
+  } else {
+    const agentId = req.body.agent;
+    const password = req.body.password;
+    console.log(req.body.agent);
+    let agent = await Agent.findById(agentId);
+    if (!agent)
+      return res.status(400).send({
+        status: "fail",
+        message: "Agent introuvable!",
+      });
+
+    const vaildPassword = await bcrypt.compare(password, agent.password);
+    if (!vaildPassword)
+      return res.status(400).send({
+        status: "fail",
+        message: "Mot de passe incorrect!",
+      });
+  }
 
   // else if user is auth
   // do nothing
@@ -127,7 +165,8 @@ exports.store = catchAsync(async (req, res) => {
     status: req.body.status,
     agent: {
       _id: req.body.agent,
-      name: agent.username,
+      name: agent.fullName,
+      username: agent.username,
     },
     updatedAt: new Date(Date.now()).toISOString(),
   });
@@ -176,6 +215,7 @@ exports.edit = catchAsync(async (req, res) => {
     Agent.find({}, { _id: 1, username: 1 }),
   ]);
 
+  console.log(lead);
   if (!lead) return res.status(404).render("404");
   res.render("leads/details", {
     lead,
@@ -239,7 +279,8 @@ exports.update = catchAsync(async (req, res) => {
     status: req.body.status,
     agent: {
       _id: req.body.agent,
-      name: agent.username,
+      name: agent.fullName,
+      username: agent.username,
     },
     updatedAt: new Date(Date.now()).toISOString(),
   });

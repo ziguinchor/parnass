@@ -43,9 +43,8 @@ export const redirect = (location, flashMessage = undefined) => {
       message: flashMessage[1],
     })
   );
-  if (document.cookie.match(/^(.*;)?\s*access_token\s*=\s*[^;]+(.*)?$/))
-    window.location.href = location;
-  else window.location.href = "/courses";
+
+  window.location.href = location;
 };
 
 export const initDatePicker = () => {

@@ -76,5 +76,6 @@ const validateAgent = (agent) => {
   return schema.validateAsync(agent);
 };
 
+
 exports.Agent = Agent;
 exports.validate = validateAgent;

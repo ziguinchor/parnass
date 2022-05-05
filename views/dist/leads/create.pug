@@ -82,9 +82,10 @@ block main
                 select.form-select.mb-2(data-control='select2' data-placeholder='Selectionner une Option' name='agent')
                   each agent in agents
                     option(value=agent._id)= agent.username
-              .fv-row.flex-row-fluid
-                label.required.form-label Mot de Passe
-                input.form-control(type='password' name='password' )
+              if(!locals.me) 
+                .fv-row.flex-row-fluid
+                  label.required.form-label Mot de Passe
+                  input.form-control(type='password' name='password' )
             .d-flex.flex-column.flex-md-row.gap-5 
               textarea.form-control(name='comment' placeholder='Commentaire' rows="5")
 

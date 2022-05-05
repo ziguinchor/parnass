@@ -26,7 +26,7 @@ block main
             option(value='any') N'importe
             each status in statuses
               option(value=status.value)= status.label
-        a.btn.btn-light-success.font-weight-bolder.btn-sm(href='/leads/create')
+        a.btn.btn-light-success.font-weight-bolder.btn-sm(href='/leads/super-create')
           include ../partials/svg/two-circles
           | Nouveau
         a#lead-download-btn.btn.btn-light-primary.font-weight-bolder.btn-sm(href='/leads/download/?search=&center=LDF1&dateRange=' download="export.xlsx") 

@@ -93,8 +93,9 @@ block main
               .fv-row.flex-row-fluid
                 label.required.form-label Agent
                 select.form-select.mb-2(data-control='select2' data-placeholder='Selectionner une Option' name='agent')
+                  option(value=lead.agent._id)= lead.agent.name
                   each agent in agents
-                    option(value=agent._id selected=lead.agent._id == agent._id)= agent.username
+                    option(value=agent._id xvalue=lead.agent._id selected=lead.agent._id == agent._id)= agent.username
             .d-flex.flex-column.flex-md-row.gap-5
 
               textarea.form-control(name='comment' placeholder='Commentaire' rows="5")=lead.comment
